@@ -11,7 +11,7 @@ In this case - `localhost:5000` or `localhost:5001`
 # Setup
 
 1. Clone the project
-2. run the following commands 
+2. run the following commands
 
 ```
 docker-compose up #to spin up the containers
