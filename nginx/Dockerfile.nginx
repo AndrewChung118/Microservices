@@ -1,0 +1,8 @@
+FROM nginx:latest
+# Nginx will listen on this port
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+#this doesn't work 🤷‍♂️
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+

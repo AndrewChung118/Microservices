@@ -6,23 +6,19 @@ services:
       dockerfile: Dockerfile.main
     ports:
       - 5000:5000
-  sub_app:
+
+  # sub_app:
+  #   build:
+  #     context: ./sub
+  #     dockerfile: Dockerfile.sub_app
+  #   ports:
+  #     - 5001:5001
+
+  nginx:
+    container_name: nginx1
     build:
-      context: ./sub
-      dockerfile: Dockerfile.sub_app
+      context: ./nginx
+      dockerfile: Dockerfile.nginx
+    restart: always
     ports:
-      - 5001:5001
-    # depends_on:
-    #   - db
-    # environment:
-    #   DATABASE_URL:
-  # db:0
-  #   image: mysql
-  #   environment:
-  #     MYSQL_DB:
-  #     MYSQL_USERNAME:
-  #     MYSQL_PASSWORD:
-  #   volumes:
-  #      - db_volume
-# volumes:
-#     - db_volume
+      - "80:80"
