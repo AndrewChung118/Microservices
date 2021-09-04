@@ -41,9 +41,11 @@
 
 FROM python:3.7-slim
 
-ENV CONTAINER_HOME=/var/www
+ENV CONTAINER_HOME=/app
 
 ADD . $CONTAINER_HOME
 WORKDIR $CONTAINER_HOME
 
 RUN pip install -r $CONTAINER_HOME/requirements.txt
+
+CMD gunicorn --bind 0.0.0.0:8000 --workers 4 "app:create_app()"
