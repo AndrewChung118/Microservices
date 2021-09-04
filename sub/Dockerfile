@@ -30,10 +30,19 @@
 FROM python:3.7-slim
 
 ENV CONTAINER_HOME=/app/sub
-
-ADD . $CONTAINER_HOME
 WORKDIR $CONTAINER_HOME
 
-RUN pip install -r $CONTAINER_HOME/requirements.txt
+# RUN pip install -r $CONTAINER_HOME/requirements.txt
+RUN pip install --upgrade pip
+RUN pip install pipenv
+
+# Copy pip files
+COPY Pipfile* .
+
+# install dependencies
+RUN pipenv install --dev --system --deploy
+
+# copy the rest of files over
+COPY . .
 
 CMD gunicorn --bind 0.0.0.0:8001 --workers 4 "sub.sub_app:create_app()"
