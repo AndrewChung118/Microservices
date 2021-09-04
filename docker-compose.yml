@@ -1,24 +1,28 @@
-version: "3.7"
+version: "3.1"
+
 services:
-  app:
+  nginx:
+    image: nginx:1.15
+    container_name: nginx
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+
+  flask:
     build:
       context: ./main
-      dockerfile: Dockerfile.main
-    ports:
-      - 5000:5000
+      dockerfile: Dockerfile
+    container_name: flask
+    command: gunicorn --bind 0.0.0.0:8000 --workers 4 "main.app:create_app()"
+    volumes:
+      - ./:/var/www
 
-  # sub_app:
-  #   build:
-  #     context: ./sub
-  #     dockerfile: Dockerfile.sub_app
-  #   ports:
-  #     - 5001:5001
-
-  nginx:
-    container_name: nginx1
+  flask2:
     build:
-      context: ./nginx
-      dockerfile: Dockerfile.nginx
-    restart: always
-    ports:
-      - "80:80"
+      context: ./sub
+      dockerfile: Dockerfile
+    container_name: flask2
+    command: gunicorn --bind 0.0.0.0:8001 --workers 4 "sub.sub_app:create_app()"
+    volumes:
+      - ./:/var/www2

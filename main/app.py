@@ -1,8 +1,11 @@
 from flask import Flask
 
-app = Flask(__name__)
 
+def create_app():
+    app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "Hey, we have Flask in a Docker container!"
+    @app.route("/")
+    def index():
+        return "hello world app 1"
+
+    return app
