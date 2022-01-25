@@ -6,7 +6,7 @@ By using a single command it will spin up containers containing the services you
 In this case it spins the `main` and `sub` app.
 
 These app are span up on different using ports and can be accessed by going to the designated urls
-In this case - `localhost:5000` or `localhost:5001`
+In this case - `localhost:80`, `localhost:80/api`
 
 # Setup
 
